@@ -1,3 +1,5 @@
+import Input from "@/src/components/Input";
+import { Lock, Mail } from "lucide-react";
 import Link from "next/link";
 
 export default function LoginScreen(){
@@ -9,10 +11,23 @@ export default function LoginScreen(){
       
       <div>
         <form>
-          <div>
+          <Input
+            id="email"
+            label="E-mail"
+            logoForField={<Mail className="w-5 h-5 text-gray-400"/>} 
+            type="email"  
+          />
+
+          <Input 
+            id="password"
+            label="Senha"
+            logoForField={<Lock className="w-5 h-5 text-gray-400"/>}
+            type="password"
+          />
+          {/* <div>
             <label>E-mail</label>
             <input type="email" placeholder="example@example.com"/>
-          </div>
+          </div> */}
 
           <div>
             <label>Senha</label>
