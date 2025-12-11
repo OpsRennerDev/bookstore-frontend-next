@@ -1,3 +1,4 @@
+import HeaderLogin from "@/src/components/HeaderLogin";
 import Input from "@/src/components/Input";
 import { Lock, Mail } from "lucide-react";
 import Link from "next/link";
@@ -5,9 +6,10 @@ import Link from "next/link";
 export default function LoginScreen(){
   return (
     <div>
-      <div>HEADER - LOGO</div>
-      <h1>Bem vindo de volta!</h1>
-      <p>Entre em sua conta para continuar sua jornada literária</p>
+      <HeaderLogin 
+        title="Bem vindo de volta!"
+        description="Entre em sua conta para continuar sua jornada literária"
+      />
       
       <div>
         <form>
@@ -28,12 +30,7 @@ export default function LoginScreen(){
             <label>E-mail</label>
             <input type="email" placeholder="example@example.com"/>
           </div> */}
-
-          <div>
-            <label>Senha</label>
-            <input type="password" placeholder="*****"/>
-          </div>
-
+          
           <button
            type="submit"
           >

@@ -1,12 +1,14 @@
+import HeaderLogin from "@/src/components/HeaderLogin";
 import Link from "next/link";
 
 export default function SignUpScreen(){
   return(
     <div>
-      <div>Header - LOGO</div>
-      <h1>Crie sua conta</h1>
-      <p>Junte-se a milhares de leitores</p>
-      {/* um componente header */}
+      <HeaderLogin 
+        title="Crie sua conta"
+        description="Junte-se a milhares de leitores"
+      />
+
 
       <form>
         <div>
