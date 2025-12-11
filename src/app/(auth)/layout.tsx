@@ -1,3 +1,4 @@
+import ContainerLogin from "@/src/components/ContainerLogin";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,8 +11,8 @@ export default function AuthLayout({
   children: React.ReactNode
 }>) {
   return(
-    <div className="min-h-screen">
+    <ContainerLogin>
       {children}
-    </div>
+    </ContainerLogin>
   )
 }

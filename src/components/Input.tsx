@@ -1,4 +1,6 @@
-import { HTMLInputTypeAttribute } from "react";
+'use client'
+import { Eye, EyeOff } from "lucide-react";
+import { HTMLInputTypeAttribute, useState } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 
 type InputProps = {
@@ -19,6 +21,8 @@ export default function Input({
   logoForField
   // registration
 }: Readonly<InputProps>){
+  const [showPassword, setShowPassword] = useState(false)
+  
   return (
     <div className="space-y-2">
       <label htmlFor={id} className=" text-sm font-semibold text-gray-700">
@@ -30,7 +34,7 @@ export default function Input({
         </div>
         <input
           id={id}
-          type={type}
+          type={showPassword ? "text" : type}
           // {...registration}
           placeholder={placeholder}
           className="
@@ -40,6 +44,20 @@ export default function Input({
             transition-all duration-300
           "
         />
+        
+        {type === "password" && (
+          <button
+            type="button" 
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute inset-y-0 right-0 pr-3 flex items-center"
+          >
+            {showPassword ? (
+              <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+            ) : (
+              <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+            )}  
+          </button>
+        )}
       </div>
 
     </div>

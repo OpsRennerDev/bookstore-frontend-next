@@ -1,3 +1,4 @@
+import Divider from "@/src/components/Divider";
 import HeaderLogin from "@/src/components/HeaderLogin";
 import Input from "@/src/components/Input";
 import { Lock, Mail } from "lucide-react";
@@ -5,14 +6,13 @@ import Link from "next/link";
 
 export default function LoginScreen(){
   return (
-    <div>
+    <>
       <HeaderLogin 
         title="Bem vindo de volta!"
         description="Entre em sua conta para continuar sua jornada literária"
       />
-      
-      <div>
-        <form>
+      <div className="bg-white rounded-3xl shadow-2xl p-8">
+        <form className="space-y-6">
           <Input
             id="email"
             label="E-mail"
@@ -26,17 +26,21 @@ export default function LoginScreen(){
             logoForField={<Lock className="w-5 h-5 text-gray-400"/>}
             type="password"
           />
-          {/* <div>
-            <label>E-mail</label>
-            <input type="email" placeholder="example@example.com"/>
-          </div> */}
-          
+         
           <button
            type="submit"
+           className="
+            w-full bg-linear-to-r from-blue-600 to-purple-600
+            text-white py-3 px-4 rounded-xl font-semibold
+            hover:shadow-xl transform hover:scale-105 transition-all duration-300
+            flex items-center justify-center gap-2
+           "
           >
             Entrar
           </button>
         </form>
+
+        <Divider />
 
         <div className="space-y-3">
           <button className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-300 rounded-xl hover:bg-gray-50 transition-all duration-200">
@@ -50,8 +54,11 @@ export default function LoginScreen(){
           </button>
         </div>
 
-        <Link href="/signup">Criar conta</Link>
+        <div className="mt-8 text-center">
+          <p className="text-gray-600">Não tem uma conta?</p>
+          <Link href="/signup" className="text-blue-600 hover:text-blue-800 font-semibold">Cadastre-se</Link>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
