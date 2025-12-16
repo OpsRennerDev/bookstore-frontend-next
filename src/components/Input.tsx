@@ -18,8 +18,9 @@ export default function Input({
   label,
   type = "text",
   placeholder,
-  logoForField
-  // registration
+  logoForField,
+  registration,
+  errorMessage
 }: Readonly<InputProps>){
   const [showPassword, setShowPassword] = useState(false)
   
@@ -35,7 +36,7 @@ export default function Input({
         <input
           id={id}
           type={showPassword ? "text" : type}
-          // {...registration}
+          {...registration}
           placeholder={placeholder}
           className="
             w-full pl-10 pr-4 py-3 
@@ -58,6 +59,8 @@ export default function Input({
             )}  
           </button>
         )}
+
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       </div>
 
     </div>

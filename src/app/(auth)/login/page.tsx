@@ -1,31 +1,99 @@
+'use client'
+import { useState } from "react";
+import { useUserContext } from "@/src/context/useUserContext";
+
 import Divider from "@/src/components/Divider";
 import HeaderLogin from "@/src/components/HeaderLogin";
 import Input from "@/src/components/Input";
 import { Lock, Mail } from "lucide-react";
 import Link from "next/link";
+import z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const schema = z.object({
+  email: z.email("Email inválido"),
+  password: z.string().min(3, "Senha precisa ter pelo menos 3 caracteres")
+})
+
+type FormData = z.infer<typeof schema>
+
+const API_URL = "http://localhost:3002/users"
 
 export default function LoginScreen(){
+  const {
+    register,
+    handleSubmit,
+    formState: {errors}
+  } = useForm({
+    resolver: zodResolver(schema)
+  })
+
+  const {login, user} = useUserContext()
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
+
+  async function onSubmit(data: FormData){
+    try {
+      setLoading(true)
+      setErrorMessage(null)
+
+      const response = await fetch(
+        `${API_URL}?email=${encodeURIComponent(data.email)}&password=${encodeURIComponent(data.password)}}`
+      )
+
+      if (!response.ok) {
+        throw new Error("Erro ao conectar com o servidor")
+      }
+
+      const users = await response.json()
+
+      if(!Array.isArray(users) || users.length === 0){
+        setErrorMessage("E-mail ou senha inválidos")
+        return
+      }
+
+      const foundUser = users[0]
+
+      login(foundUser)
+    } catch (err){
+      console.log(err)
+      setErrorMessage("Ocorreu um erro ao tentar fazer login")
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <>
+      <p>Ja logado com {user?.email}</p>
       <HeaderLogin 
         title="Bem vindo de volta!"
         description="Entre em sua conta para continuar sua jornada literária"
       />
       <div className="bg-white rounded-3xl shadow-2xl p-8">
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <Input
             id="email"
             label="E-mail"
             logoForField={<Mail className="w-5 h-5 text-gray-400"/>} 
-            type="email"  
+            registration={register("email")}
+            type="email"
+            errorMessage={errors.email?.message}
           />
 
           <Input 
             id="password"
             label="Senha"
             logoForField={<Lock className="w-5 h-5 text-gray-400"/>}
+            registration={register("password")}
             type="password"
+            errorMessage={errors.password?.message}
           />
+
+          {errorMessage && (
+            <p className="text-red-500 text-sm">{errorMessage}</p>
+          )}
          
           <button
            type="submit"
@@ -36,7 +104,7 @@ export default function LoginScreen(){
             flex items-center justify-center gap-2
            "
           >
-            Entrar
+            {loading ? "Entrando..." : "Entrar"}
           </button>
         </form>
 
