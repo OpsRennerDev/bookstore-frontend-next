@@ -9,7 +9,6 @@ export default function SignUpScreen(){
         description="Junte-se a milhares de leitores"
       />
 
-
       <form>
         <div>
           <label>Nome</label>

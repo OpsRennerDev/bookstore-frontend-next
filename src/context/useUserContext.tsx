@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useMemo, useState } from "react"
 
 type User = {
   id: string
@@ -22,8 +22,10 @@ export function UserProvider({children}: Readonly<{children: React.ReactNode}>){
   const login = (data: User) => setUser(data)
   const logout = () => setUser(null)
 
+  const obj = useMemo(() => ({user, login, logout}), [])
+
   return (
-    <UserContext.Provider value={{user, login, logout}}>
+    <UserContext.Provider value={obj}>
       {children}
     </UserContext.Provider>
   )
