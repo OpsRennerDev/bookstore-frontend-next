@@ -11,14 +11,14 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const schema = z.object({
+export const schema = z.object({
   email: z.email("Email inválido"),
   password: z.string().min(3, "Senha precisa ter pelo menos 3 caracteres")
 })
 
-type FormData = z.infer<typeof schema>
+export type FormData = z.infer<typeof schema>
 
-const API_URL = "http://localhost:3002/users"
+export const API_URL = "http://localhost:3002/users"
 
 export default function LoginScreen(){
   const {

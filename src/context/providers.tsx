@@ -1,4 +1,4 @@
-import { UserProvider } from "../context/useUserContext";
+import { UserProvider } from "./useUserContext";
 
 export function Providers({
   children
